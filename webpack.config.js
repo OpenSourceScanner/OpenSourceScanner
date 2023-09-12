@@ -57,6 +57,15 @@ const config = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
+      publicPath: '/',
+    },
+    proxy: {
+      '/': 'http://loocalhost:3000'
+    }
+  }
 };
 
 module.exports = config;
