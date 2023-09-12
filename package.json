@@ -34,7 +34,11 @@
   },
   "homepage": "https://github.com/OpenSourceScanner/OpenSourceScanner#readme",
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.8",
     "@reduxjs/toolkit": "^1.9.5",
+    "@types/material-ui": "^0.21.12",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "react": "^18.2.0",
