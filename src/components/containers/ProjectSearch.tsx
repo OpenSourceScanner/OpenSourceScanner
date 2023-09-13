@@ -10,11 +10,11 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import { RootState } from '../../store';
 import technologiesDropdownSlice from '../../features/technologiesDropdownSlice';
 import projectNameSlice from '../../features/projectNameSlice';
 import starsCountSlice from '../../features/starsCountSlice';
 import forksCountSlice from '../../features/forksCountSlice';
+import repoSizeSlice from '../../features/repoSizeSlice';
 import ListItemText from '@mui/material/ListItemText';
 
 // A list of all the technologies that will be used in the technologies dropdown
@@ -231,8 +231,49 @@ const ProjectSearchContainer: React.FC<{}> = () => {
 
     // dispatching the action to update the state of the forksCountSlice
     dispatch(forksCountSlice.actions.changeForksCount(forks));
-  };
 
+    // dispatching the action to update the state of the repoSizeSlice
+    dispatch(repoSizeSlice.actions.changeRepoSize(size));
+
+    // setting variables to be used in fetch requests
+    const tech = technologyName;
+    const name = projectName;
+    const starsCount = stars;
+    const forksCount = forks;
+    const repoSize = size;
+
+    // creating the object to be used in the fetch request
+    const searchObject = {
+      name: name,
+      techArray: tech,
+      stars: starsCount,
+      forks: forksCount,
+      size: repoSize,
+    };
+    // creating a fetch request to the server inside the request body
+
+    console.log(searchObject);
+    fetch('http://localhost:3000/collectRepos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(searchObject),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // setting the state of the searchResultsSlice to the data returned from the fetch request
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
+
+    setTechnologyName([]);
+    setProjectName('');
+    setStars('');
+    setForks('');
+    setSize('');
+  };
+  // setting constants to the state of the slices on submit
   return (
     <>
       <Grid container spacing={2}>

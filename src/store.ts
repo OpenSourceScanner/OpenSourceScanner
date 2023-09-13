@@ -3,6 +3,7 @@ import technologiesDropdownSlice from './features/technologiesDropdownSlice';
 import changeProjectNameSlice from './features/projectNameSlice';
 import changeStarsCountSlice from './features/starsCountSlice';
 import changeForksCountSlice from './features/forksCountSlice';
+import repoSizeSlice from './features/repoSizeSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     projectName: changeProjectNameSlice.reducer,
     starsCount: changeStarsCountSlice.reducer,
     forksCount: changeForksCountSlice.reducer,
+    repoSize: repoSizeSlice.reducer,
   },
 });
 
