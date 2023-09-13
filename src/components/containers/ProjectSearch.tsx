@@ -12,8 +12,10 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import { RootState } from '../../store';
 import { technologiesDropdownSlice } from '../../features/technologiesDropdownSlice';
-import ListItemText from '@mui/material/ListItemText';
 import projectNameSlice from '../../features/projectNameSlice';
+import starsCountSlice from '../../features/starsCountSlice';
+import forksCountSlice from '../../features/forksCountSlice';
+import ListItemText from '@mui/material/ListItemText';
 
 // A list of all the technologies that will be used in the technologies dropdown
 // in alphabetical order, if you wish to add more technologies to the dropdown
@@ -152,8 +154,8 @@ const MenuProps = {
 
 // using the handleChange function to update the state of the technologiesDropdownSlice
 const ProjectSearchContainer: React.FC<{}> = () => {
-  const dispatch = useDispatch;
-  const theme = useTheme;
+  const dispatch = useDispatch();
+  const theme = useTheme();
 
   // creating the states for each of the dropdowns and the text field
   const [technologyName, setTechnologyName] = React.useState<string[]>([]);
@@ -172,10 +174,9 @@ const ProjectSearchContainer: React.FC<{}> = () => {
     const {
       target: { value },
     } = event;
-    setProjectName(
-      // On autofill we get a stringified value.
-      value
-    );
+    setProjectName(value);
+
+    // dispatching the action to update the state of the projectNameSlice
   };
 
   // setting the values of the dropdowns when they are selected to update the
@@ -213,6 +214,19 @@ const ProjectSearchContainer: React.FC<{}> = () => {
     setSize(value);
   };
 
+  // creating the function to handle the submit button
+  const handleSubmit = () => {
+    // dispatching the action to update the state of the technologiesDropdownSlice
+    dispatch(
+      technologiesDropdownSlice.actions.changeTechnology(
+        technologyName.join(', ')
+      )
+    );
+
+    // dispatching the action to update the state of the projectNameSlice
+    dispatch(projectNameSlice.actions.changeProjectName(projectName));
+  };
+
   return (
     <>
       <Grid container spacing={2}>
@@ -228,7 +242,12 @@ const ProjectSearchContainer: React.FC<{}> = () => {
           />
         </Grid>
         <Grid item xs={2}>
-          <Button variant='contained' fullWidth size='large'>
+          <Button
+            variant='contained'
+            fullWidth
+            size='large'
+            // onClick={handleSubmit}
+          >
             Submit
           </Button>
         </Grid>

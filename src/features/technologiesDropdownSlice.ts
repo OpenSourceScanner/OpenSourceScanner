@@ -15,7 +15,7 @@ interface TechnologiesDropdownState {
 
 // Define the initial state using that type
 const initialState: TechnologiesDropdownState = {
-  value: 'Any',
+  value: '0',
 };
 
 export const technologiesDropdownSlice = createSlice({
@@ -26,6 +26,10 @@ export const technologiesDropdownSlice = createSlice({
     // Use the PayloadAction type to declare the contents of `action.payload`
     changeTechnology: (state, action: PayloadAction<string>) => {
       state.value = action.payload;
+    },
+    // adding logic to reset the state to the initial state when the submit button is clicked
+    resetTechnology: (state) => {
+      state.value = initialState.value;
     },
   },
 });
