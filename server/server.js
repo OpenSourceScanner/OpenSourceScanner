@@ -6,26 +6,17 @@ const searchController = require('./controllers/searchController');
 
 // defining port
 const PORT = 3000;
+
 // parsing json data from req body
 app.use(express.json());
 
 // serving static assets
 app.use(express.static('dist'));
 
-
-// GET route
-app.get('/a', searchController.aaa, (req, res) => {
+// // GET route
+app.get('/test', searchController.test, (req, res) => {
   res.status(200).json({})
-  // res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
-
-
-
-// app.get('/', (req, res, next) => {
-//   console.log('Initial GET request is working as intended in server.js');
-//   res.status(200).send("hi");
-// });
-
 
 
 app.use((req, res) => res.status(404).send('Error page not found'))
