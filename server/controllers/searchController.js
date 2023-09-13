@@ -9,7 +9,7 @@ searchController.collectRepos = async (req, res, next) => {
   // }
   try {
     // declare url variable
-    const githubUrl = `https://api.github.com/search/repositories?q=`;
+    let githubUrl = `https://api.github.com/search/repositories?q=`;
     
     // add join functionality later
     // if req.body.name.length is zero, return next(err)
