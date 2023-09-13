@@ -14,9 +14,13 @@ app.use(express.json());
 app.use(express.static('dist'));
 
 // // GET route
-app.get('/test', searchController.test, (req, res) => {
-  res.status(200).json({})
+app.get('/collectRepos', searchController.collectRepos, (req, res) => {
+  res.status(200).json(res.locals.validReposArray);
 });
+
+app.get('/repoInfo', searchController.repoInfo, (req, res) => {
+  res.status(200).json({})
+})
 
 
 app.use((req, res) => res.status(404).send('Error page not found'))

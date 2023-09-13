@@ -2,7 +2,7 @@ const axios = require('axios');
 
 
 const searchController = {};
-searchController.test = async (req, res, next) => {
+searchController.collectRepos = async (req, res, next) => {
   // req.body = {
   //   name: "java react",
 
@@ -101,13 +101,41 @@ searchController.test = async (req, res, next) => {
 
   } catch(err) {
     return next({
-        log: 'Express global error handler caught unknown middleware error',
+        log: 'Express global error handler caught error in searchController.collectRepos',
         status: 500,
         message: { err: `An error occurred: ${err}` },
     })
   }
 
 }
+
+
+searchController.repoInfo = async (req, res, next) => {
+  const url = 'https://api.github.com/repos/YMFE/yapi' //`https://api.github.com/repos/${req.body.fullName}`
+
+  try {
+
+    const readmeData = await axios.get(`${url}/readme`)
+    const packageJson = await axios.get(`${url}/contents/package.json`)
+    console.log('we made it this far.......', packageJson.data.content)
+    const readmeContent = Buffer.from(readmeData.data.content, 'base64').toString('utf-8');
+    const packageJsonContent = packageJson.data.content ? JSON.parse(Buffer.from(packageJson.data.content, 'base64').toString('utf-8')) : "NO PACKAGE.JSON FILE FOUND";
+    res.locals.repoContent = { readmeContent, packageJsonContent };
+    console.log('packageJson', packageJsonContent)
+    return next();
+
+  } catch(err) {
+    return next({
+      log: 'Express global error handler caught error in searchController.repoInfo',
+      status: 500,
+      message: { err: `An error occurred: ${err}` },
+    })
+  }
+
+
+}
+
+
 
 module.exports = searchController;
 
