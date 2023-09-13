@@ -162,11 +162,11 @@ const ProjectSearchContainer: React.FC<{}> = () => {
 
   const [projectName, setProjectName] = React.useState<string>('');
 
-  const [stars, setStars] = React.useState<string>('');
+  const [stars, setStars] = React.useState<string>('0');
 
-  const [forks, setForks] = React.useState<string>('');
+  const [forks, setForks] = React.useState<string>('0');
 
-  const [size, setSize] = React.useState<string>('');
+  const [size, setSize] = React.useState<string>('0');
 
   // setting the values of the text field when they are updated
   // and reflecting that in the input field
@@ -252,7 +252,7 @@ const ProjectSearchContainer: React.FC<{}> = () => {
     };
     // creating a fetch request to the server inside the request body
 
-    console.log(searchObject);
+    // console.log(searchObject);
     fetch('http://localhost:3000/collectRepos', {
       method: 'POST',
       headers: {
@@ -267,11 +267,12 @@ const ProjectSearchContainer: React.FC<{}> = () => {
       })
       .catch((err) => console.log(err));
 
-    setTechnologyName([]);
-    setProjectName('');
-    setStars('');
-    setForks('');
-    setSize('');
+    // resetting the state of the slices to their initial state
+    projectNameSlice.actions.resetProjectName;
+    technologiesDropdownSlice.actions.resetTechnology;
+    starsCountSlice.actions.resetStarsCount;
+    forksCountSlice.actions.resetForksCount;
+    repoSizeSlice.actions.resetRepoSize;
   };
   // setting constants to the state of the slices on submit
   return (
