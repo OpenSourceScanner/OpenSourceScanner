@@ -7,6 +7,7 @@
     "clean": "rm dist/bundle.js",
     "build-dev": "webpack --mode development",
     "build-prod": "webpack --mode production",
+    "dev": "webpack-dev-server --mode development --open --hot & nodemon ./server/server.js",
     "start": "webpack serve --hot --mode development",
     "test": "jest --verbose --coverage"
   },
@@ -35,8 +36,12 @@
   "homepage": "https://github.com/OpenSourceScanner/OpenSourceScanner#readme",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^1.5.0",
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "mongoose": "^7.5.1",
+    "nodemon": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "redux": "^4.2.1"
