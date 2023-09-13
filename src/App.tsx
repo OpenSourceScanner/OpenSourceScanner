@@ -1,14 +1,11 @@
 import * as React from 'react';
+import MainContainer from './components/containers/MainContainer';
 
-interface Props {
-  name: string;
-}
-
-const App: React.FC<Props> = ({ name }) => {
+const App: React.FC<{}> = () => {
   return (
-    <>
-      <h1>Hello {name}</h1>
-    </>
+    <div id='root'>
+      <MainContainer />
+    </div>
   );
 };
 
