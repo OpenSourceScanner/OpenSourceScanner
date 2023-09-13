@@ -12,8 +12,7 @@ searchController.collectRepos = async (req, res, next) => {
 
     // add join functionality later
     // if req.body.name.length is zero, return next(err)
-    if (req.body.name.length === 0 || req.body.techArray.length === 0)
-      return next('Please enter more info');
+    if (req.body.techArray.length === 0) return next('Please enter more info');
 
     // iterate through technologies object in req body to add readme filters
     for (let i = 0; i < req.body.techArray; i++) {

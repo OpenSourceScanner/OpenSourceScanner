@@ -217,6 +217,7 @@ const ProjectSearchContainer: React.FC<{}> = () => {
   // creating the function to handle the submit button
   const handleSubmit = () => {
     // dispatching the action to update the state of the technologiesDropdownSlice
+    // and updating the preview to show a string of the technologies selected
     dispatch(
       technologiesDropdownSlice.actions.changeTechnology(
         technologyName.join(', ')
