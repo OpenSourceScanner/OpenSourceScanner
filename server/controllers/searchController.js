@@ -72,7 +72,7 @@ searchController.test = async (req, res, next) => {
 
       // get full name from item
       const fullName = englishRepos[i].full_name;
-      const license = englishRepos[i].license ? englishRepos[i].license.key : null;
+      const license = englishRepos[i].license ? englishRepos[i].license.key : '';
       const description = englishRepos[i].description;
       const url = englishRepos[i].svn_url;
       const size = englishRepos[i].size;
