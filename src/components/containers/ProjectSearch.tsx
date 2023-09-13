@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import { RootState } from '../../store';
-import { technologiesDropdownSlice } from '../../features/technologiesDropdownSlice';
+import technologiesDropdownSlice from '../../features/technologiesDropdownSlice';
 import projectNameSlice from '../../features/projectNameSlice';
 import starsCountSlice from '../../features/starsCountSlice';
 import forksCountSlice from '../../features/forksCountSlice';
@@ -225,6 +225,12 @@ const ProjectSearchContainer: React.FC<{}> = () => {
 
     // dispatching the action to update the state of the projectNameSlice
     dispatch(projectNameSlice.actions.changeProjectName(projectName));
+
+    // dispatching the action to update the state of the starsCountSlice
+    dispatch(starsCountSlice.actions.changeStarsCount(stars));
+
+    // dispatching the action to update the state of the forksCountSlice
+    dispatch(forksCountSlice.actions.changeForksCount(forks));
   };
 
   return (
@@ -246,7 +252,7 @@ const ProjectSearchContainer: React.FC<{}> = () => {
             variant='contained'
             fullWidth
             size='large'
-            // onClick={handleSubmit}
+            onClick={handleSubmit}
           >
             Submit
           </Button>

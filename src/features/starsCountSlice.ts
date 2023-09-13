@@ -35,7 +35,6 @@ export const starsCountSlice = createSlice({
   },
 });
 
-export default starsCountSlice.reducer;
-
+export default starsCountSlice;
 // Other code such as selectors can use the imported `RootState` type
 export const selectStarsCount = (state: RootState) => state.starsCount.value;

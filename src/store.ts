@@ -1,15 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-import technologiesDropdownReducer from './features/technologiesDropdownSlice';
-import changeProjectName from './features/projectNameSlice';
-import changeStarsCount from './features/starsCountSlice';
-import changeForksCount from './features/forksCountSlice';
+import technologiesDropdownSlice from './features/technologiesDropdownSlice';
+import changeProjectNameSlice from './features/projectNameSlice';
+import changeStarsCountSlice from './features/starsCountSlice';
+import changeForksCountSlice from './features/forksCountSlice';
 
 export const store = configureStore({
   reducer: {
-    technologiesDropdown: technologiesDropdownReducer,
-    projectName: changeProjectName,
-    starsCount: changeStarsCount,
-    forksCount: changeForksCount,
+    technologiesDropdown: technologiesDropdownSlice.reducer,
+    projectName: changeProjectNameSlice.reducer,
+    starsCount: changeStarsCountSlice.reducer,
+    forksCount: changeForksCountSlice.reducer,
   },
 });
 

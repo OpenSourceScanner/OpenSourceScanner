@@ -33,7 +33,6 @@ export const forksCountSlice = createSlice({
   },
 });
 
-export default forksCountSlice.reducer;
-
+export default forksCountSlice;
 // Other code such as selectors can use the imported `RootState` type
 export const selectForksCount = (state: RootState) => state.forksCount.value;

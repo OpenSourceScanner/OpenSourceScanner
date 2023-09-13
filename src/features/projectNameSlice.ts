@@ -10,7 +10,7 @@ import { RootState } from '../store';
 
 // Define a type for the slice state
 interface ProjectNameState {
-  value: string | string[];
+  value: string;
 }
 
 // Define the initial state using that type
@@ -34,9 +34,7 @@ export const projectNameSlice = createSlice({
   },
 });
 
-export const { changeProjectName } = projectNameSlice.actions;
-
 // Other code such as selectors can use the imported `RootState` type
 export const selectProjectName = (state: RootState) => state.projectName.value;
 
-export default projectNameSlice.reducer;
+export default projectNameSlice;

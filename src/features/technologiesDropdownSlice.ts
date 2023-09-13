@@ -3,8 +3,7 @@
 // actions are exported and used in the component
 // reducers are exported and used in the store
 // initial state is exported and used in the component
-//
-// Path: src/features/technologiesDropdownSlice.ts
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
@@ -34,10 +33,11 @@ export const technologiesDropdownSlice = createSlice({
   },
 });
 
-export const { changeTechnology } = technologiesDropdownSlice.actions;
-
 // Other code such as selectors can use the imported `RootState` type
 export const selectTechnology = (state: RootState) =>
   state.technologiesDropdown.value;
+// exporting the actions
+export const { changeTechnology, resetTechnology } =
+  technologiesDropdownSlice.actions;
 
-export default technologiesDropdownSlice.reducer;
+export default technologiesDropdownSlice;
