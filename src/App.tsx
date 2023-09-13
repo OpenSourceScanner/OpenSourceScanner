@@ -1,16 +1,14 @@
 import * as React from 'react';
+import ProjectContainer from './components/ProjectContainer';
+import './styles.css'; // Import your CSS here
+import './styles.scss'; // Import your SCSS here
 
-interface Props {
-  name: string;
-}
-
-class App extends React.Component<Props> {
+class App extends React.Component {
   render() {
-    const { name } = this.props;
     return (
-      <>
-        <h1>Hello {name}</h1>
-      </>
+      <div>
+        <ProjectContainer />
+      </div>
     );
   }
 }
