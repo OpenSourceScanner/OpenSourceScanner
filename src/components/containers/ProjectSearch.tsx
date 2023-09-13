@@ -10,13 +10,13 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import ListItemText from '@mui/material/ListItemText';
 import technologiesDropdownSlice from '../../features/technologiesDropdownSlice';
 import projectNameSlice from '../../features/projectNameSlice';
 import starsCountSlice from '../../features/starsCountSlice';
 import forksCountSlice from '../../features/forksCountSlice';
 import repoSizeSlice from '../../features/repoSizeSlice';
-import ListItemText from '@mui/material/ListItemText';
-
+import searchResultsSlice from '../../features/projectSearchSlice';
 // A list of all the technologies that will be used in the technologies dropdown
 // in alphabetical order, if you wish to add more technologies to the dropdown
 
@@ -168,6 +168,8 @@ const ProjectSearchContainer: React.FC<{}> = () => {
 
   const [size, setSize] = React.useState<string>('0');
 
+  const [searchResults, setSearchResults] = React.useState<string[]>([]);
+
   // setting the values of the text field when they are updated
   // and reflecting that in the input field
   const handleNameChange = (event: any) => {
@@ -265,15 +267,19 @@ const ProjectSearchContainer: React.FC<{}> = () => {
       .then((data) => {
         // setting the state of the searchResultsSlice to the data returned from the fetch request
         console.log(data);
+        // adding the data to the store
+
+        // dispatching the action to update the state of the searchResultsSlice
+        dispatch(searchResultsSlice.actions.changeProjectSearch(data));
       })
       .catch((err) => console.log(err));
 
     // resetting the state of the slices to their initial state
-    projectNameSlice.actions.resetProjectName;
-    technologiesDropdownSlice.actions.resetTechnology;
-    starsCountSlice.actions.resetStarsCount;
-    forksCountSlice.actions.resetForksCount;
-    repoSizeSlice.actions.resetRepoSize;
+    setTechnologyName([]);
+    setProjectName('');
+    setStars('0');
+    setForks('0');
+    setSize('0');
   };
   // setting constants to the state of the slices on submit
   return (
