@@ -57,6 +57,17 @@ const config = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
+      publicPath: '/',
+    },
+    proxy: {
+      '/': 'http://localhost:3000',
+      '/collectRepos': 'http://localhost:3000',
+      '/repoInfo': 'http://localhost:3000',
+    },
+  },
 };
 
 module.exports = config;

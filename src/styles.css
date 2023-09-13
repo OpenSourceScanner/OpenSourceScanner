@@ -16,8 +16,10 @@ body, html {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
+  overflow-y: auto; 
 }
+
 
 .project-header-container {
   padding: 20px;
@@ -26,9 +28,9 @@ body, html {
   width: 100%;
   max-width: 1000px;
   display: flex;
-  flex-wrap: wrap; /* Wrap elements if they exceed the container's width */
-  justify-content: space-between; /* Spacing between elements */
-  align-items: center; /* Center the content vertically */
+  flex-wrap: wrap; 
+  justify-content: space-between; 
+  align-items: center; 
   margin-top: 20px;
 }
 
@@ -42,6 +44,7 @@ body, html {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
+  position: relative;
 }
 
 .tags-container {
@@ -58,12 +61,39 @@ body, html {
   align-items: center; 
 }
 
+.readme-container {
+  padding: 600px;
+  background-color: #111;
+  border-radius: 10px;
+  border: 1px solid white;
+  max-width: 1000px;
+  width: 100%;
+  margin-top: 20px;
+}
+
 /* Buttons */
-.github-button {
+/* .github-button {
   margin-top: 20px;
   bottom: -35px;
   left: -250px;
+} */
+
+/* Buttons */
+
+.github-button {
+  margin-top: 20px;
+  position: fixed;
+  bottom: -35px; 
+  left: -380px; 
 }
+
+@media screen and (max-width: 768px) {
+  .github-button {
+    bottom: -35px;
+    left: -380px;
+  }
+}
+
 
 .star-chip-container,
 .chip-container,
