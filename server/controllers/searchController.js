@@ -3,49 +3,56 @@ const axios = require('axios');
 
 const searchController = {};
 searchController.test = async (req, res, next) => {
+  // req.body = {
+  //   name: "java react",
+
+  // }
   try {
     // declare url variable
     const githubUrl = `https://api.github.com/search/repositories?q=`;
     
     // add join functionality later
     // if req.body.name.length is zero, return next(err)
-    if (req.body.name.length === 0 || req.body.techArray.length === 0) return next("Please enter text in the name field");
-
-    // building URL from the req.body object
-    // technologies in req body as string
-    // iterate through technologies object in req body to add topics filters
-    for (let i = 0; i < req.body.technologyObj; i++) {
-      githubUrl += `topic:${req.body.technologyObj.name}+`
-    }
+    if (req.body.name.length === 0 || req.body.techArray.length === 0) return next("Please enter more info");
 
     // iterate through technologies object in req body to add readme filters
-    for (let i = 0; i < req.body.technologyObj; i++) {
-      githubUrl += `${req.body.technologyObj.name}+`;
+    for (let i = 0; i < req.body.techArray; i++) {
+      githubUrl += `${req.body.techArray[i]}+`;
     }
-    githubUrl += 'in:readme+';
 
-    // take the name from req body and concatenate to url
-    githubUrl += `${req.body.name}`;
+    // check if name is longer than 0 characters
+    if (req.body.name.length > 0) {
+      // take the name from req body and concatenate to url
+      githubUrl += `${req.body.name.split(" ").join("+")}+`;
+    }
+
+    githubUrl += 'in:readme+';
 
     // stars in req body as string
       // options: 0+, 50, 100, 500, 1000, 5000
-    githubUrl += `${req.body.stars}`;
+    githubUrl += `stars:>${req.body.stars}+`;
 
     // forks in req body as string
       // options: same as stars
-    githubUrl += `${req.body.forks}`;
+    githubUrl += `forks:>${req.body.forks}+`;
 
     // size in req body as string (in kb)
       // options: 0+, 1000kb, 10000kb, 50000kb, 100000kb
-    githubUrl += `${req.body.size}`;
+    githubUrl += `size:>${req.body.size}+`;
     
+    // concatenate exclusions from fetch request
+    githubUrl += 'NOT awesome+NOT list+NOT tutorial+NOT interview+NOT roadmap&sort=stars&order=desc&per_page=10';
+
+
+
     // fetch data from repository endpoint w/ parameters in the request body
     // this fetch gives repo data (ex. stars, name, tech stack, forks)
-    const data = await axios.get('https://api.github.com/search/repositories?q=python+sql+in:readme+stars:>2000+NOT awesome+NOT list+NOT tutorial+NOT interview+NOT roadmap&sort=stars&order=desc&per_page=10', {
+    const data = await axios.get(githubUrl);
+    // const data = await axios.get('https://api.github.com/search/repositories?q=python+sql+in:readme+stars:>2000+NOT awesome+NOT list+NOT tutorial+NOT interview+NOT roadmap&sort=stars&order=desc&per_page=10', {
       // headers: {
       //   'Authorization': 'token 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',
       // },
-    })
+    // })
 
     // declaring constant repos and assigning it the items in the data array
     const repos = data.data.items;
