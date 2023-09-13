@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "allowSyntheticDefaultImports": true,
     "outDir": "./dist/",
     "sourceMap": true,
     "strict": true,
@@ -11,5 +16,6 @@
     "allowJs": true,
     "jsx": "react"
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

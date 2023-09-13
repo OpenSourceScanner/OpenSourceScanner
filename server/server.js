@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const cors = require('cors');
 
 const searchController = require('./controllers/searchController');
 const accountController = require('./controllers/accountController');
@@ -10,7 +11,7 @@ const PORT = 3000;
 
 // parsing json data from req body
 app.use(express.json());
-
+app.use(cors('*'));
 // serving static assets
 app.use(express.static('dist'));
 
@@ -23,7 +24,7 @@ app.post('/login', accountController.login, (req, res) => {
 })
 
 // // GET route
-app.get('/collectRepos', searchController.collectRepos, (req, res) => {
+app.post('/collectRepos', searchController.collectRepos, (req, res) => {
   res.status(200).json(res.locals.validReposArray);
 });
 
@@ -31,8 +32,7 @@ app.get('/repoInfo', searchController.repoInfo, (req, res) => {
   res.status(200).json(res.locals.repoContent);
 })
 
-
-app.use((req, res) => res.status(404).send('Error page not found'))
+app.use((req, res) => res.status(404).send('Error page not found'));
 
 app.use((err, req, res, next) => {
   const defaultErr = {
@@ -44,23 +44,8 @@ app.use((err, req, res, next) => {
   console.log(errObj.log);
   console.error(err);
   return res.status(errObj.status).json(errObj.message);
-})
-
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+});

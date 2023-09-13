@@ -63,10 +63,11 @@ const config = {
       publicPath: '/',
     },
     proxy: {
+      '/': 'http://localhost:3000',
       '/collectRepos': 'http://localhost:3000',
-      '/repoInfo': 'http://localhost:3000'
-    }
-  }
+      '/repoInfo': 'http://localhost:3000',
+    },
+  },
 };
 
 module.exports = config;
