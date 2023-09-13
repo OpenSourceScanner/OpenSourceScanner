@@ -7,7 +7,8 @@
     "clean": "rm dist/bundle.js",
     "build-dev": "webpack --mode development",
     "build-prod": "webpack --mode production",
-    "start": "webpack serve --hot --mode development",
+    "start": "webpack serve --hot --mode production",
+    "dev": "webpack serve --hot --mode development",
     "test": "jest --verbose --coverage"
   },
   "repository": {
@@ -36,6 +37,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.8",
     "@mui/material": "^5.14.8",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/material-ui": "^0.21.12",
@@ -43,6 +45,7 @@
     "express": "^4.18.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.1.2",
     "redux": "^4.2.1"
   },
   "devDependencies": {
