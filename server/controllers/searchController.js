@@ -119,7 +119,9 @@ searchController.repoInfo = async (req, res, next) => {
     const packageJson = await axios.get(`${url}/contents/package.json`)
     console.log('we made it this far.......', packageJson.data.content)
     const readmeContent = Buffer.from(readmeData.data.content, 'base64').toString('utf-8');
-    const packageJsonContent = packageJson.data.content ? JSON.parse(Buffer.from(packageJson.data.content, 'base64').toString('utf-8')) : "NO PACKAGE.JSON FILE FOUND";
+    const packageJsonObj = packageJson.data.content ? JSON.parse(Buffer.from(packageJson.data.content, 'base64').toString('utf-8')) : "NO PACKAGE.JSON FILE FOUND";
+    const { dependencies, devDependencies } =  packageJsonObj;
+    const packageJsonContent = { dependencies, devDependencies };
     res.locals.repoContent = { readmeContent, packageJsonContent };
     console.log('packageJson', packageJsonContent)
     return next();
