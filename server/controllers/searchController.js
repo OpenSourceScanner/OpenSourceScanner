@@ -9,7 +9,7 @@ searchController.collectRepos = async (req, res, next) => {
   try {
     // declare url variable
     let githubUrl = `https://api.github.com/search/repositories?q=`;
-
+    
     // add join functionality later
     // if req.body.name.length is zero, return next(err)
     if (req.body.techArray.length === 0) return next('Please enter more info');
@@ -53,10 +53,34 @@ searchController.collectRepos = async (req, res, next) => {
     // })
 
     // declaring constant repos and assigning it the items in the data array
-    const repos = data.data.items;
+    let repos = data.data.items;
 
     // declaring repo array to send back to user
     const validReposArray = [];
+
+    //list of most popular open source licenses for github projects
+    const licenseKeys = [
+      "mit",
+      "gpl-3.0",
+      "gpl-2.0",
+      "apache-2.0",
+      "agpl-3.0",
+      "agpl-1.0",
+      "bsd-3-clause",
+      "bsd-2-clause",
+      "lgpl-3.0",
+      "lgpl-2.1",
+      "mpl-2.0",
+      "eupl-1.2",
+      "unlicense",
+      "cc0-1.0",
+      "afl-3.0",
+      "osl-3.0",
+      "artistic-2.0",
+    ];    
+    
+    //filter out repos w/o a license that matches one of the above open source licenses
+    repos = repos.filter(repo => repo.license? licenseKeys.includes(repo.license.key) : false);
 
     //filter out repos with description containing non-english chars and emojis
     const englishRepos = repos.filter(
@@ -122,19 +146,14 @@ searchController.repoInfo = async (req, res, next) => {
   const url = 'https://api.github.com/repos/YMFE/yapi'; //`https://api.github.com/repos/${req.body.fullName}`
 
   try {
-    const readmeData = await axios.get(`${url}/readme`);
-    const packageJson = await axios.get(`${url}/contents/package.json`);
-    console.log('we made it this far.......', packageJson.data.content);
-    const readmeContent = Buffer.from(
-      readmeData.data.content,
-      'base64'
-    ).toString('utf-8');
-    const packageJsonObj = packageJson.data.content
-      ? JSON.parse(
-          Buffer.from(packageJson.data.content, 'base64').toString('utf-8')
-        )
-      : 'NO PACKAGE.JSON FILE FOUND';
-    const { dependencies, devDependencies } = packageJsonObj;
+
+    const readmeData = await axios.get(`${url}/readme`)
+    const packageJson = await axios.get(`${url}/contents/package.json`)
+    console.log('we made it this far.......', packageJson.data.content)
+    const readmeContent = Buffer.from(readmeData.data.content, 'base64').toString('utf-8');
+    const packageJsonObj = packageJson.data.content ? JSON.parse(Buffer.from(packageJson.data.content, 'base64').toString('utf-8')) : "NO PACKAGE.JSON FILE FOUND";
+    const dependencies = packageJsonObj.dependencies ? packageJsonObj.dependencies : {};
+    const devDependencies = packageJsonObj.devDependencies ? packageJsonObj.devDependencies : {};
     const packageJsonContent = { dependencies, devDependencies };
     res.locals.repoContent = { readmeContent, packageJsonContent };
     console.log('packageJson', packageJsonContent);
@@ -153,33 +172,19 @@ module.exports = searchController;
 /*
 
 
-// https://api.github.com/search/repositories?q=language:javascript&javascript+react+mongodb+typescript+in:readme+stars:>2000&sort=stars&+NOT awesome+NOT list+NOT tutorial+NOT interview+NOT roadmap&sort=stars&order=desc
-// https://api.github.com/search/repositories?q=javascript+react+mongodb+typescript+in:readme+stars:>2000+NOT awesome+NOT list+NOT tutorial+NOT interview+NOT roadmap&sort=stars&order=desc&per_page=10
+const licenseKeys = [
+  "mit",
+  "gpl-3.0",
+  "apache-2.0",
+  "agpl-3.0",
+  "bsd-3-clause",
+  "bsd-2-clause",
+  "lgpl-3.0",
+  "mpl-2.0",
+  "eupl-1.2",
+  "unlicense",
+];
 
 
-// CURRENT LINK THAT WORKS AS INTENDED
-// https://api.github.com/search/repositories?q=topic:javascript+topic:react+javascript+react+in:readme+stars:>2000+NOT awesome+NOT list+NOT tutorial+NOT camp+NOT roadmap&sort=stars&order=desc&per_page=30
-const englishRepos = repos.filter(repo => 
-  !/[^\x00-\x7F]/.test(repo.description)
-);
 
-FIELDS TO SEND BACK:
-- name
-- full_name
-- owner (taken from full_name)
-- license.key (nested object)
-- description
-- svn_url
-- size
-- stargazers_count
-- language
-- forks_count
-- watchers
-- open_issues
-- topics
-
-- type+in:name+
-
-MISSING:
-- README (Another middleware fetch request)
 */
