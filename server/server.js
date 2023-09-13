@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 
 const searchController = require('./controllers/searchController');
+const accountController = require('./controllers/accountController');
 
 // defining port
 const PORT = 3000;
@@ -14,14 +15,22 @@ app.use(cors('*'));
 // serving static assets
 app.use(express.static('dist'));
 
+app.post('/signup', accountController.signup, (req, res) => {
+  res.status(201).json({})
+})
+
+app.post('/login', accountController.login, (req, res) => {
+  res.status(201).json({})
+})
+
 // // GET route
 app.post('/collectRepos', searchController.collectRepos, (req, res) => {
   res.status(200).json(res.locals.validReposArray);
 });
 
 app.get('/repoInfo', searchController.repoInfo, (req, res) => {
-  res.status(200).json({});
-});
+  res.status(200).json(res.locals.repoContent);
+})
 
 app.use((req, res) => res.status(404).send('Error page not found'));
 
