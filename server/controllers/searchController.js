@@ -43,7 +43,7 @@ searchController.collectRepos = async (req, res, next) => {
 
     // concatenate exclusions from fetch request
     githubUrl +=
-      'NOT awesome+NOT list+NOT tutorial+NOT interview+NOT roadmap&sort=stars&order=desc&per_page=10';
+      'NOT awesome+NOT list+NOT tutorial+NOT interview+NOT roadmap&sort=stars&order=desc&per_page=20';
 
     console.log('githubUrl', githubUrl)
 
