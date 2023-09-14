@@ -10,7 +10,7 @@ const SizeChip: React.FC<SizeChipProps> = ({ size }) => {
   return (
     <Chip
       icon={<MemoryIcon style={{ color: 'white' }} />}
-      label={`Size: ${size}MB`}
+      label={`Size: ${(Number(size)/1000).toFixed(2)}MB`}
       style={{
         backgroundColor: '#004400',
         color: 'white',
