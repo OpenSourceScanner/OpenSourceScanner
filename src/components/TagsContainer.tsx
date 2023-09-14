@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Chip from '@mui/material/Chip';
 
 interface TagsContainerProps {
@@ -7,11 +7,18 @@ interface TagsContainerProps {
 
 const TagsContainer: React.FC<TagsContainerProps> = ({ tags }) => {
   return (
-    <div className="tags-container">
-      <div className="tags-header" style={{ fontSize: '25px', textDecoration: 'underline', marginBottom: '10px' }}>
+    <div className='tags-container'>
+      <div
+        className='tags-header'
+        style={{
+          fontSize: '25px',
+          textDecoration: 'underline',
+          marginBottom: '10px',
+        }}
+      >
         Tags
       </div>
-      <div className="tag-chips">
+      <div className='tag-chips'>
         {tags.map((tag, index) => (
           <Chip
             key={index}

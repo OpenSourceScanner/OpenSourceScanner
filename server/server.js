@@ -16,21 +16,21 @@ app.use(cors('*'));
 app.use(express.static('dist'));
 
 app.post('/signup', accountController.signup, (req, res) => {
-  res.status(201).json({})
-})
+  res.status(201).json({});
+});
 
 app.post('/login', accountController.login, (req, res) => {
-  res.status(201).json({})
-})
+  res.status(201).json({});
+});
 
 // // GET route
 app.post('/collectRepos', searchController.collectRepos, (req, res) => {
   res.status(200).json(res.locals.validReposArray);
 });
 
-app.get('/repoInfo', searchController.repoInfo, (req, res) => {
+app.post('/repoInfo', searchController.repoInfo, (req, res) => {
   res.status(200).json(res.locals.repoContent);
-})
+});
 
 app.use((req, res) => res.status(404).send('Error page not found'));
 

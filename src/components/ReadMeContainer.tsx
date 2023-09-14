@@ -1,6 +1,9 @@
-import React from 'react';
+import * as React from 'react';
+import { useSelector } from 'react-redux';
 
 const ReadMeContainer: React.FC = () => {
+  const readme = useSelector((state: any) => state.projectDetails.value);
+
   // Fake README text
   const readmeText = `
     # My Project README
@@ -26,7 +29,6 @@ const ReadMeContainer: React.FC = () => {
     This project is licensed under the XYZ License.
   `;
 
-
   const readmeStyles = {
     backgroundColor: '#111',
     borderRadius: '10px',
@@ -34,12 +36,12 @@ const ReadMeContainer: React.FC = () => {
     padding: '20px',
     color: 'white',
     maxWidth: '1000px',
-    margin: '0 auto', 
+    margin: '0 auto',
   };
 
   return (
-    <div className="readme-container" style={readmeStyles}>
-      <pre>{readmeText}</pre>
+    <div className='readme-container' style={readmeStyles}>
+      <pre>{readme}</pre>
     </div>
   );
 };

@@ -8,7 +8,7 @@ import { RootState } from '../store';
 
 // Define a type for the slice state
 interface ProjectSearchState {
-  value: string[];
+  value: Object[];
 }
 
 // Define the initial state using that type

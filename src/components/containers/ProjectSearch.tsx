@@ -294,6 +294,7 @@ const ProjectSearchContainer: React.FC<{}> = () => {
             size='medium'
             onChange={handleNameChange}
             value={projectName}
+            InputProps={{ style: { backgroundColor: 'white' } }}
           />
         </Grid>
         <Grid item xs={2}>
@@ -302,6 +303,7 @@ const ProjectSearchContainer: React.FC<{}> = () => {
             fullWidth
             size='large'
             onClick={handleSubmit}
+            style={{ backgroundColor: '#004400' }}
           >
             Submit
           </Button>
@@ -314,7 +316,12 @@ const ProjectSearchContainer: React.FC<{}> = () => {
               id='technologiesDropdown'
               multiple
               value={technologyName}
-              input={<OutlinedInput label='Technologies' />}
+              input={
+                <OutlinedInput
+                  label='Technologies'
+                  style={{ backgroundColor: 'white' }}
+                />
+              }
               renderValue={(selected) => selected.join(', ')}
               MenuProps={MenuProps}
               onChange={handleTechnologyChange}
@@ -340,6 +347,7 @@ const ProjectSearchContainer: React.FC<{}> = () => {
               placeholder='stars'
               value={stars}
               onChange={handleStarsChange}
+              input={<OutlinedInput style={{ backgroundColor: 'white' }} />}
             >
               <MenuItem value={0}>Any</MenuItem>
               <MenuItem value={50}>50+</MenuItem>
@@ -361,6 +369,7 @@ const ProjectSearchContainer: React.FC<{}> = () => {
               placeholder='forks'
               value={forks}
               onChange={handleForksChange}
+              input={<OutlinedInput style={{ backgroundColor: 'white' }} />}
             >
               <MenuItem value={0}>Any</MenuItem>
               <MenuItem value={50}>50+</MenuItem>
@@ -382,6 +391,7 @@ const ProjectSearchContainer: React.FC<{}> = () => {
               placeholder='Repository Size'
               value={size}
               onChange={handleSizeChange}
+              input={<OutlinedInput style={{ backgroundColor: 'white' }} />}
             >
               <MenuItem value={0}>Any</MenuItem>
               <MenuItem value={1000}>1MB</MenuItem>

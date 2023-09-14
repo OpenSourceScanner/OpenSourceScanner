@@ -1,9 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import GitHubButton from './buttons/GitHubButton';
 
 const ProjectTitleContainer: React.FC = () => {
   return (
-    <div className="project-title-container">
+    <div className='project-title-container'>
       <GitHubButton />
     </div>
   );
