@@ -1,18 +1,15 @@
 // src/components/ProjectContainer.tsx
-import React from 'react';
+import * as React from 'react';
 import ProjectHeaderContainer from './ProjectHeaderContainer';
-import ReadMeContainer from './ReadMeContainer'; 
-
+import ReadMeContainer from './ReadMeContainer';
 
 const ProjectContainer: React.FC = () => {
   return (
-    <div className="project-container">
+    <div className='project-container'>
       <ProjectHeaderContainer />
       <ReadMeContainer />
     </div>
   );
 };
-
-
 
 export default ProjectContainer;
