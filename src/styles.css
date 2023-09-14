@@ -80,11 +80,28 @@ html {
 
 /* Buttons */
 
+.go-back {
+  margin-top: 20px;
+  left: 0px;
+  top: -20px;
+  position: fixed;
+  width: 6.5em;
+  height: 2.25em;
+  background-color: green;
+  border-radius: 10px;
+  color: white;
+  font-size: 1.25em;
+}
+
+.go-back:hover {
+  cursor: pointer;
+}
+
 .github-button {
   margin-top: 20px;
   position: fixed;
   bottom: -35px;
-  left: -380px;
+  left: -350px;
 }
 
 @media screen and (max-width: 768px) {
