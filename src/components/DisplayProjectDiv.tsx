@@ -38,7 +38,7 @@ const DisplayProjectDiv: any = ({ repo }: any) => {
       });
       const repoInfo = await response.json();
 
-      dispatch(ProjectDivSlice.actions.changeProjectDetails(repoInfo));
+      dispatch(ProjectDivSlice.actions.changeProjectDetails({...repoInfo, ...repo}));
       navigate('/repo');
 
       return;
