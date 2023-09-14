@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 const ProjectHeaderContainer: React.FC = () => {
   const repoInfo = useSelector((state: any) => state.projectDetails.value);
   console.log('repoInfo', repoInfo)
-  const tags = Object.keys(repoInfo.dependencies);
+  const tags = Object.keys(repoInfo.dependencies).concat(Object.keys(repoInfo.devDependencies));
 
 
   console.log('repoInfo', repoInfo)
