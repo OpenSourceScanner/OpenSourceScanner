@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 
 const ReadMeContainer: React.FC = () => {
-  const readme = useSelector((state: any) => state.projectDetails.value);
+  const { readmeContent } = useSelector((state: any) => state.projectDetails.value);
 
   // Fake README text
   const readmeText = `
@@ -41,7 +41,7 @@ const ReadMeContainer: React.FC = () => {
 
   return (
     <div className='readme-container' style={readmeStyles}>
-      <pre>{readme}</pre>
+      <pre>{readmeContent}</pre>
     </div>
   );
 };

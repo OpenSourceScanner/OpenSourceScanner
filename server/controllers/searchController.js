@@ -12,7 +12,7 @@ searchController.collectRepos = async (req, res, next) => {
     
     // add join functionality later
     // if req.body.name.length is zero, return next(err)
-    if (req.body.techArray.length === 0) return next('Please enter more info');
+    if (req.body.techArray.length === 0 && req.body.name.length === 0) return next('Please enter more info');
 
     // iterate through technologies object in req body to add readme filters
     for (let i = 0; i < req.body.techArray; i++) {
@@ -21,8 +21,10 @@ searchController.collectRepos = async (req, res, next) => {
 
     // check if name is longer than 0 characters
     if (req.body.name.length > 0) {
+      console.log('whoa.....')
+      const linked = req.body.name.split(' ').join('+');
       // take the name from req body and concatenate to url
-      githubUrl += `${req.body.name.split(' ').join('+')}+`;
+      githubUrl += `${linked}+`;
     }
 
     githubUrl += 'in:readme+';
@@ -41,7 +43,9 @@ searchController.collectRepos = async (req, res, next) => {
 
     // concatenate exclusions from fetch request
     githubUrl +=
-      'NOT awesome+NOT list+NOT tutorial+NOT interview+NOT roadmap&sort=stars&order=desc&per_page=10';
+      'NOT awesome+NOT list+NOT tutorial+NOT interview+NOT roadmap&sort=stars&order=desc&per_page=20';
+
+    console.log('githubUrl', githubUrl)
 
     // fetch data from repository endpoint w/ parameters in the request body
     // this fetch gives repo data (ex. stars, name, tech stack, forks)
@@ -143,19 +147,30 @@ searchController.collectRepos = async (req, res, next) => {
 };
 
 searchController.repoInfo = async (req, res, next) => {
-  const url = 'https://api.github.com/repos/YMFE/yapi'; //`https://api.github.com/repos/${req.body.fullName}`
+  const url = `https://api.github.com/repos/${req.body.fullName}`;
+  console.log('url', url)
 
   try {
-
+    let packageJsonContent = {dependencies: {}, devDependencies: {}};
     const readmeData = await axios.get(`${url}/readme`)
-    const packageJson = await axios.get(`${url}/contents/package.json`)
-    console.log('we made it this far.......', packageJson.data.content)
+    console.log('maybeeeeeeeee')
+    try {
+      const packageJson = await axios.get(`${url}/contents/package.json`)
+      console.log('we made it this far.......')
+      const packageJsonObj = packageJson.data.content ? JSON.parse(Buffer.from(packageJson.data.content, 'base64').toString('utf-8')) : "NO PACKAGE.JSON FILE FOUND";
+      const dependencies = packageJsonObj.dependencies ? packageJsonObj.dependencies : {};
+      const devDependencies = packageJsonObj.devDependencies ? packageJsonObj.devDependencies : {};
+      packageJsonContent = { dependencies, devDependencies };
+    } catch(err) {
+      console.log('aaaal;fksdklf', err)
+      if (err.response && err.response.status === 404) {
+        console.log('package.json file not found.');
+      } else console.error(`ERROR: ${err}`)
+    }
+
     const readmeContent = Buffer.from(readmeData.data.content, 'base64').toString('utf-8');
-    const packageJsonObj = packageJson.data.content ? JSON.parse(Buffer.from(packageJson.data.content, 'base64').toString('utf-8')) : "NO PACKAGE.JSON FILE FOUND";
-    const dependencies = packageJsonObj.dependencies ? packageJsonObj.dependencies : {};
-    const devDependencies = packageJsonObj.devDependencies ? packageJsonObj.devDependencies : {};
-    const packageJsonContent = { dependencies, devDependencies };
-    res.locals.repoContent = { readmeContent, packageJsonContent };
+    
+    res.locals.repoContent = { readmeContent, ...packageJsonContent };
     console.log('packageJson', packageJsonContent);
     return next();
   } catch (err) {

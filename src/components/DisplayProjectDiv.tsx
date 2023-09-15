@@ -38,7 +38,7 @@ const DisplayProjectDiv: any = ({ repo }: any) => {
       });
       const repoInfo = await response.json();
 
-      dispatch(ProjectDivSlice.actions.changeProjectDetails(repoInfo));
+      dispatch(ProjectDivSlice.actions.changeProjectDetails({...repoInfo, ...repo}));
       navigate('/repo');
 
       return;
@@ -80,7 +80,7 @@ const DisplayProjectDiv: any = ({ repo }: any) => {
           Forks: {forks}
         </Grid>
         <Grid item xs={2}>
-          Size: {size}
+          Size: {(Number(size)/1000).toFixed(2)}MB
         </Grid>
       </Grid>
     </>

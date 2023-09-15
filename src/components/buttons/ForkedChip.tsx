@@ -3,14 +3,14 @@ import Chip from '@mui/material/Chip';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 interface ForkedChipProps {
-  label: string;
+  forks: string;
 }
 
-const ForkedChip: React.FC<ForkedChipProps> = ({ label }) => {
+const ForkedChip: React.FC<ForkedChipProps> = ({ forks }) => {
   return (
     <Chip
       icon={<ContentCopyIcon style={{ color: 'white' }} />}
-      label={label}
+      label={`Forks: ${forks}`}
       style={{
         backgroundColor: '#004400',
         color: 'white',
